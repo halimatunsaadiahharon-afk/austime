@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Gimik Perasmian Autisme 2026</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap" rel="stylesheet">
+    
+    <style>
+        body, html { 
+            margin: 0; padding: 0; height: 100%; 
+            font-family: 'Montserrat', sans-serif; 
+            overflow: hidden; background: #000; 
+        }
+
+        /* --- VIDEO BACKGROUND --- */
+        #video-bg {
+            position: fixed; top: 0; left: 0; 
+            width: 100%; height: 100%;
+            object-fit: cover; z-index: 1;
+            opacity: 1; /* Mula dengan terang sepenuhnya */
+            transition: opacity 2s ease; /* Transisi malap yang lembut */
+        }
+
+        /* --- OVERLAY UNTUK KLIK --- */
+        #main-overlay {
+            position: fixed; top: 0; left: 0;
+            width: 100%; height: 100%;
+            z-index: 10; display: flex;
+            justify-content: center; align-items: center;
+            background: rgba(0, 0, 0, 0); 
+            transition: background 2s ease;
+            cursor: pointer;
+        }
+
+        /* --- CARD MAJLIS (Sembunyi pada mulanya) --- */
+        #official-card {
+            display: none; opacity: 0;
+            width: 85%; max-width: 1000px;
+            text-align: center; z-index: 20;
+            transform: scale(0.9); /* Kesan zoom-in sedikit */
+            transition: all 2s cubic-bezier(0.19, 1, 0.22, 1);
+        }
+
+        h1 { 
+            color: #fff; font-size: clamp(1.8rem, 5vw, 3.8rem); font-weight: 900; 
+            margin: 10px 0; line-height: 1.2;
+            text-shadow: 0 5px 20px rgba(0,0,0,0.8);
+        }
+
+        h2 {
+            color: #FFCA3A; font-size: clamp(1rem, 2.5vw, 1.8rem);
+            letter-spacing: 6px; margin-bottom: 20px;
+            text-transform: uppercase;
+        }
+
+        .separator {
+            width: 150px; height: 5px; 
+            background: linear-gradient(90deg, #FF595E, #FFCA3A, #8AC926, #1982C4, #6A4C93);
+            margin: 25px auto; border-radius: 10px;
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
+        }
+
+        .vip-label { letter-spacing: 4px; font-size: 0.9rem; color: #ddd; text-transform: uppercase; }
+        
+        .vip-name { 
+            font-size: clamp(1.3rem, 3.5vw, 2.5rem); font-weight: 800; 
+            color: #fff; margin: 10px 0; text-transform: uppercase;
+        }
+
+        .vip-role { color: #8AC926; font-size: 2.2rem; font-weight: 600; }
+
+        /* Butang Exit Halimunan (Hanya muncul bila hover di bucu kanan) */
+        #exit-btn {
+            position: fixed; top: 10px; right: 10px; z-index: 100;
+            width: 40px; height: 40px; background: transparent;
+            display: flex; justify-content: center; align-items: center; 
+            cursor: pointer; color: rgba(255,255,255,0.1); font-family: sans-serif;
+        }
+        #exit-btn:hover { color: #fff; background: rgba(255,0,0,0.5); border-radius: 50%; }
+    </style>
+</head>
+<body>
+
+    <video id="video-bg" playsinline loop muted preload="auto">
+        <source src="video.mp4" type="video/mp4">
+    </video>
+
+    <div id="exit-btn" onclick="location.reload()">X</div>
+
+    <div id="main-overlay" onclick="triggerGimmick()">
+        
+        <div id="official-card">
+            <h2>TEMA: CELEBRATING DIFFERENCES</h2>
+            <h1>MAJLIS SAMBUTAN<br>HARI KESEDARAN AUTISME 2026</h1>
+            <div class="separator"></div>
+            <div class="vip-label">DIRASMIKAN OLEH:</div>
+            <div class="vip-name">YBRS. TUAN YAZLAN SUNARDIE BIN CHE YAHAYA, AMK., BCK., BKM.</div>
+            <div class="vip-role">Pegawai Daerah Baling</div>
+        </div>
+
+    </div>
+
+    <script>
+        const video = document.getElementById('video-bg');
+        const overlay = document.getElementById('main-overlay');
+        const card = document.getElementById('official-card');
+        
+        let isStarted = false;
+
+        // Autoplay video sebaik sahaja page load (Muted)
+        window.onload = () => {
+            video.play().catch(e => console.log("Menunggu interaksi user untuk suara/fullscreen"));
+        };
+
+        function triggerGimmick() {
+            if (!isStarted) {
+                // 1. Fullscreen (Opsional)
+                const elem = document.documentElement;
+                if (elem.requestFullscreen) elem.requestFullscreen();
+
+                // 2. Malapkan Video ke 40% (0.4)
+                video.style.opacity = "0.4";
+
+                // 3. Gelapkan background overlay
+                overlay.style.background = "rgba(0, 0, 0, 0.5)";
+
+                // 4. Paparkan teks dengan animasi
+                card.style.display = "block";
+                setTimeout(() => {
+                    card.style.opacity = "1";
+                    card.style.transform = "scale(1)";
+                }, 100);
+
+                isStarted = true;
+            }
+        }
+    </script>
+</body>
+</html>
